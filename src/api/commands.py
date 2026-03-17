@@ -1,6 +1,8 @@
 
 import click
 from api.models import db, User
+from api.models import db, User, Videojuego
+
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -32,3 +34,28 @@ def setup_commands(app):
     @app.cli.command("insert-test-data")
     def insert_test_data():
         pass
+
+        ejemplos = [
+            Videojuego(
+                nombre="The Legend of Zelda: Breath of the Wild",
+                ano=2017,
+                empresa="Nintendo",
+                consolas="Nintendo Switch, Wii U",
+            ),
+            Videojuego(
+                nombre="Elden Ring",
+                ano=2022,
+                empresa="FromSoftware",
+                consolas="PS5, Xbox Series X/S, PC",
+            ),
+            Videojuego(
+                nombre="God of War Ragnarök",
+                ano=2022,
+                empresa="Santa Monica Studio",
+                consolas="PS5, PS4",
+            ),
+        ]
+        for j in ejemplos:
+            db.session.add(j)
+        db.session.commit()
+        print(f"Insertados {len(ejemplos)} videojuegos")
